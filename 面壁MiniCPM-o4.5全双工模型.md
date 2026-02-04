@@ -1,4 +1,18 @@
 刚刚，面壁小钢炮开源进阶版「Her」，9B模型居然有了「活人感」
+
+## 文章配图
+
+![OpenCompass评分](images/img_2.png)
+
+![与Gemini对比](images/img_3.png)
+
+![能效比](images/img_4.png)
+
+![模型架构](images/img_5.png)
+
+---
+
+
 图片
 机器之心编辑部
 
@@ -41,21 +55,21 @@ Hugging Face: https://huggingface.co/openbmb/MiniCPM-o-4_5
 
 
 
-Image
+![图2](images/img_2.png)
 
 
 MiniCPM-o 4.5 在 MMBench（综合视觉理解）、MathVista（数学推理）及 OmniDocBench（文档解析）等关键任务上击败了顶级闭源模型 Gemini 2.5 Flash。
 
 
 
-Image
+![图3](images/img_3.png)
 
 
 不仅如此，MiniCPM-o 4.5 在提升能力密度的同时也在追求极致能效比：以更低显存占用、更快响应速度，在保持 SOTA 级多模态表现下，实现更高推理效率与更低推理成本。
 
 
 
-Image
+![图4](images/img_4.png)
 
 
 如果说过去的 AI 只是按部就班地执行指令，那么 MiniCPM-o 4.5 则赋予了 AI 一种真正的「本能」—— 它不仅能眼观六路、耳听八方地实时感知世界，还能在恰当的时机主动开口、自由接话，实现不受轮次约束的即时交流，真正开启了人机交互的新时代。
@@ -194,7 +208,7 @@ MiniCPM-o 4.5 打破的就是这面墙。它构建了一种全双工、全模态
 
 
 
-Image
+![图5](images/img_5.png)
 
 
 如果说全双工架构给了 AI 一双「永不闭合」的眼睛和一对「时刻倾听」的耳朵，那么自主交互机制，则是给了它一颗「懂得察言观色」的大脑。
