@@ -6,6 +6,7 @@
 
 | 日期 | 标题 | 主题 |
 |------|------|------|
+| 2026-02-05 | [Voxtral 2 Mistral Transcription](Voxtral2_Mistral_Transcription.md) | ASR / Mistral AI / 实时转写 |
 | 2026-02-05 | [SWE-Universe Qwen Coding Agents](SWE-Universe_Qwen_Coding_Agents.md) | Coding Agents / Qwen / 807K Environments |
 | 2026-02-05 | [Google Kaggle Game Arena](Google_Kaggle_Game_Arena.md) | AI Benchmarking / Games / Gemini |
 | 2026-02-05 | [CL-BENCH Context Learning](CL-BENCH_Context_Learning.md) | AI Benchmark / Context Learning / Tencent |
