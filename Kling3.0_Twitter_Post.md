@@ -32,6 +32,9 @@
 ### Tweet 6: @higgsfield_ai
 - **Link:** https://x.com/higgsfield_ai/status/2019068318901289381
 
+### Tweet 7: @_tobiaslee
+- **Link:** https://x.com/_tobiaslee/status/2019057509118742815
+
 ---
 
 ## Draft Twitter Post
@@ -113,6 +116,7 @@ Kling 3.0 刚发布，AI 视频圈炸了 🔥
 | @fal | https://x.com/fal/status/2019063571779403915 |
 | @kling_ai ⭐ | https://x.com/kling_ai/status/2019064918960668819 |
 | @higgsfield_ai | https://x.com/higgsfield_ai/status/2019068318901289381 |
+| @_tobiaslee | https://x.com/_tobiaslee/status/2019057509118742815 |
 
 ## Related Links
 - Kling official: https://klingai.com/
