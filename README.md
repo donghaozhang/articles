@@ -25,6 +25,7 @@
 | [Claude Code Agent Teams 逆向分析](2026-02-13/Claude-Code-Agent-Teams-Reverse-Engineering.md) | Claude Code / Multi-Agent / 文件系统消息队列 / JSON / 逆向工程 |
 | [Seedance 2.0 提示词集合站 (YouMind)](2026-02-13/Seedance-2.0-Prompt-Library-YouMind.md) | Seedance 2.0 / 提示词库 / 170+ Prompts / 参考图 / 免费 |
 | [WebMCP：让每个网站成为 AI Agent 的工具接口](2026-02-13/WebMCP-Browser-Native-Agent-API.md) | WebMCP / W3C / Chrome 146 / Google / Microsoft / Agent SEO |
+| [MCP Apps：在聊天中渲染交互式 HTML 界面](2026-02-13/MCP-Apps-Interactive-UI-in-Chat.md) | MCP / Interactive UI / HTML Apps / Sandboxed iframe / 双向通信 |
 
 ---
 
