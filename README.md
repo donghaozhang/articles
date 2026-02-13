@@ -22,6 +22,7 @@
 | 文章 | 主题 |
 |------|------|
 | [Google Gemini API Skills](2026-02-13/Google-Gemini-Skills.md) | Google / Gemini / Agent Skills / Open Standard / Agentic Primitives |
+| [Claude Code Agent Teams 逆向分析](2026-02-13/Claude-Code-Agent-Teams-Reverse-Engineering.md) | Claude Code / Multi-Agent / 文件系统消息队列 / JSON / 逆向工程 |
 
 ---
 
