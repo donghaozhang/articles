@@ -4,6 +4,14 @@
 
 ---
 
+## 📅 2026-02-15
+
+| 文章 | 主题 |
+|------|------|
+| [解剖五把 AI 手术刀：Claude Code / Codex / Gemini CLI 技术架构全拆解](2026-02-15/AI-Coding-CLI-Architecture-Comparison/) | Claude Code / Codex CLI / Gemini CLI / OpenCode / Cursor / Agent Loop / 安全沙箱 / MCP / 多代理架构 |
+
+---
+
 ## 📅 2026-02-14
 
 | 文章 | 主题 |
@@ -125,4 +133,4 @@ articles/
 
 ---
 
-*Last updated: 2026-02-14*
+*Last updated: 2026-02-15*
