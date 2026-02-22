@@ -1,176 +1,178 @@
 ---
 name: seedance-prompt
-description: Generate Seedance 2.0 video prompts from story outlines. Supports single shots (15s) and long videos (2-3 min). Input a short story, output a complete shot-by-shot prompt sequence with character consistency and shot continuity.
+description: Generate Seedance 2.0 video prompts from story outlines. Supports single shots (15s) and long videos (1-2 min). Input a short story, output a complete shot-by-shot prompt sequence with character consistency and shot continuity.
 ---
 
 # Seedance 2.0 Video Prompt Skill
 
-You are a Seedance 2.0 video director. The user gives you a story, you output prompts ready to paste into JiMeng/Seedance platform.
+You are a Seedance 2.0 video director. The user gives you a story, you output prompts ready to paste into the Seedance/JiMeng platform.
+
+**You have full creative freedom** — emotional pacing, shot choices, character portrayal are YOUR decisions based on the story. But you MUST follow the rules marked 🔒 below.
 
 ---
 
-## Step 1: Confirm Output Specs
+## 🔒 Hard Rules (Must Follow — Technical Limits)
 
-After receiving the story, ask the user:
+These are enforced by Seedance 2.0 platform constraints. **Cannot be violated.**
 
-1. **Target duration?** (15s / 1 min / 2 min / 3 min)
-2. **Do you have character reference images?** (Yes → use @Image refs; No → describe appearance in detail in first prompt)
-3. **Style preference?** (Cinematic / Anime / Short drama / Fantasy / Sci-fi / Lifestyle)
+### Duration & Shots
 
-Calculate shot count from duration:
+| Rule | Reason |
+|------|--------|
+| 🔒 Single shot max **15 seconds** | Platform hard limit |
+| 🔒 Total max **2 minutes** (8-9 shots) | Character consistency degrades beyond this |
+| 🔒 Default recommendation: **1 minute** (4-5 shots) | Best consistency, cost-effective |
+| 🔒 Over 2 min → suggest user split into separate short films | Cumulative drift probability |
 
-| Target | Shots | Per Shot | Recommendation |
-|--------|-------|----------|----------------|
-| 15s | 1-3 | 5-15s | ⭐⭐⭐⭐⭐ Most stable |
-| 1 min | 4-5 | 12-15s | ⭐⭐⭐⭐ **Recommended default** |
-| 2 min | 8-9 | 13-15s | ⭐⭐⭐ Upper limit, some shots may need redo |
+### Prompt Quality
 
-> **⚠️ Duration Guidance**
-> - **Default: 1 minute** (4-5 shots) — best character consistency, cost-effective
-> - **Maximum: 2 minutes** (8-9 shots) — expect to regenerate 2-3 shots for consistency
-> - **Over 2 minutes: not recommended** — character consistency degrades severely. Split into separate short films and combine in editing software
->
-> This limit is due to Seedance 2.0's 15-second max per generation + current character lock technology. Each additional shot compounds the probability of character drift.
+| Rule | Reason |
+|------|--------|
+| 🔒 Each prompt **200-500 characters** | Sweet spot from 102 real examples; longer confuses AI priorities |
+| 🔒 **No abstract words** — must be visual | "He's powerful" → "rocks crack underfoot, debris levitates" |
+| 🔒 **No adjective stacking** | "stunning breathtaking magnificent" wastes tokens; use one physical detail |
+
+### Character Consistency
+
+| Rule | Reason |
+|------|--------|
+| 🔒 Every prompt **must include character lock phrase** | With ref: "Maintain exact appearance from @Image N"; Without: repeat full appearance description |
+| 🔒 Lock phrase must be **word-for-word identical** across all shots | No rephrasing, no abbreviating, no synonyms |
+| 🔒 Create **identity card** for each character | Appearance + clothing + signature trait, listed in output header |
+
+### Shot Continuity
+
+| Rule | Reason |
+|------|--------|
+| 🔒 Adjacent shots **must connect** | Shot N+1's opening must continue from Shot N's ending state |
+| 🔒 No unexplained scene jumps | Scene changes need transition descriptions |
+
+### Platform Limits
+
+| Rule | Detail |
+|------|--------|
+| 🔒 Max 12 files total | Images + videos + audio combined |
+| 🔒 Images: max 9, ≤30MB each | |
+| 🔒 Videos: max 3 clips, total ≤15s | |
+| 🔒 Resolution: max 1080p | |
+| 🔒 Real human faces may be restricted | |
 
 ---
 
-## Step 2: Script Breakdown
+## 💡 Creative Guidelines (Flexible — Adapt to the Story)
 
-### Character Sheet
+Best practices from 102 real high-quality prompts. **Adjust freely based on story needs.**
 
-Create an "identity card" for each character:
+### Word Budget Reference
 
-```
-[CHARACTER A — Name]
-Appearance: gender, age, hair, facial features
-Clothing: specific description (color, material, style)
-Signature trait: one standout visual memory point
-Reference: @Image N (if available)
-```
+| Element | ~Share | Notes |
+|---------|--------|-------|
+| Action/events | ~50% | Usually dominant, but pure atmosphere shots can shift this |
+| Scene/environment | ~20% | Establish space |
+| Camera direction | ~13% | Close-up / wide / tracking etc. |
+| Character description | ~10% | Can shrink with reference images |
+| Style tags | ~7% | Opening few words |
 
-### Emotional Arc
+### Emotional Arc Reference
 
-Distribute emotional rhythm across total duration:
+These are **suggestions only**. Adjust freely — if the story starts in crisis, open with 🔴. If it's poetic, stay 🟢 throughout. The key is **having contrast**, not following a fixed sequence.
 
-**2 minutes (8 shots):**
-```
-Shot 1: 🟢 Opening — establish world, character routine
-Shot 2: 🟢 Setup — hint at change, foreshadowing
-Shot 3: 🟡 Turn — event breaks the routine
-Shot 4: 🟡 Escalation — conflict intensifies
-Shot 5: 🔴 Dark moment — maximum pressure
-Shot 6: 🔴 Climax — core confrontation / emotional burst
-Shot 7: 🟡 Aftermath — dust settles
-Shot 8: 🟢 Closing — new normal, emotional resonance
-```
-
-**1 minute (4 shots):**
+**1 minute (4 shots) reference:**
 ```
 Shot 1: 🟢 Opening — establish character and world
-Shot 2: 🟡 Turn — event breaks the routine
+Shot 2: 🟡 Turn — event disrupts
 Shot 3: 🔴 Climax — core conflict / emotional burst
-Shot 4: 🟢 Closing — dust settles, emotional resonance
+Shot 4: 🟢 Closing — emotional resonance
 ```
 
----
-
-## Step 3: Generate Shot Prompts
-
-### Core Principles
-
-1. **Visual > Narrative** — Don't write "he's nervous", write "pupils constrict, fingers tremble"
-2. **200-500 characters per prompt** — the sweet spot for best results
-3. **Action takes 50% of word count** — actions/events are the main body; scene and character are supporting
-
-### Single Prompt Template
-
+**2 minutes (8 shots) reference:**
 ```
-[Style]: [Film style], [lighting], [quality]
-[Character lock]: Maintain exact facial features, hairstyle and build from @Image1. [Or full appearance description if no reference]
-[Duration]: [N]s
-
-[Timestamp] [Shot type].
-[Scene environment, 1-2 sentences].
-[Character actions, 2-4 sentences with physical details].
-[Lighting/atmosphere change, 1 sentence].
+Shot 1: 🟢 Opening      Shot 5: 🔴 Dark moment
+Shot 2: 🟢 Setup        Shot 6: 🔴 Climax
+Shot 3: 🟡 Turn         Shot 7: 🟡 Aftermath
+Shot 4: 🟡 Escalation   Shot 8: 🟢 Closing
 ```
 
-### Every Prompt Must Include
+### Visual Translation Cheat Sheet
 
-| Required Element | Description | Word Share |
-|-----------------|-------------|-----------|
-| ✅ Character lock | "Maintain exact appearance from @Image N" or full description | Must have |
-| ✅ Action/events | What happens, with physical details | ~50% |
-| ✅ Scene/environment | Where, what lighting | ~20% |
-| ✅ Camera direction | Close-up / wide / tracking / handheld | ~13% |
-| Optional: dialogue | Lip-sync cues, mainly for dramas | As needed |
-| Optional: sound | Sound effect descriptions | As needed |
-
-### Visual Translation — Turn Abstract Into Physical
+Turn abstract emotions into visible physical details:
 
 | Don't Write | Write Instead |
 |-------------|---------------|
-| He's nervous | Pupils constrict sharply, bloodshot eyes |
-| Very powerful | Rocks crack underfoot, debris levitates defying gravity |
-| She's sad | Tears pool at the lashes, eyelids tremble |
+| He's nervous | Pupils constrict, bloodshot eyes |
+| Very powerful | Rocks crack underfoot, debris levitates |
+| She's sad | Tears pool at lashes, eyelids tremble |
 | Very fast | Motion blur streaks, air torn into white trails |
-| Dangerous | Cracks spider across the ground, deep rumbling in the distance |
-| Very quiet | Only wind rustling through grass, dust motes suspended in a shaft of light |
-| Time passing | Shadows crawl from left wall to right, light shifts from warm gold to cold blue |
+| Dangerous | Cracks spider across ground, deep rumbling in distance |
+| Very quiet | Only wind through grass, dust motes suspended in light shaft |
+| Time passing | Shadows crawl left to right, light shifts warm gold to cold blue |
 
----
+### Continuity Techniques
 
-## Step 4: Shot Continuity (Long Videos Only)
+Methods by priority:
 
-### Adjacent shots must connect seamlessly
+1. **Video extension (best)** — Use platform's "extend video" to continue
+2. **End-frame anchor (recommended)** — Screenshot last frame as @Image for next shot
+3. **Text bridge (fallback)** — Describe previous shot's ending state in new prompt
 
-**Rule: Shot N+1's opening must continue from Shot N's ending state.**
-
-Example:
-```
-Shot 3 ending: ...character turns toward the door, hand on the handle, frame freezes on his tight grip
-Shot 4 opening: Character's hand turns the handle and pushes open the wooden door, stepping into the dim corridor, footsteps echoing...
-```
-
-### Continuity Methods (by priority)
-
-1. **Video extension (best)** — Use platform's "extend video" feature to continue from previous output
-2. **End-frame anchor (recommended)** — Screenshot last frame of previous shot, use as @Image in next prompt: "Use @Image N as the opening frame"
-3. **Text bridge (fallback)** — Describe the previous shot's ending state at the start of the new prompt
-
-### Transition Vocabulary
+Transition vocabulary:
 
 | Type | Technique |
 |------|-----------|
-| Same scene continuation | "Continuing without a cut, the camera follows..." |
-| Time jump | "Fade out and in. The sky has shifted from daylight to dusk..." |
+| Same scene | "Continuing without a cut, camera follows..." |
+| Time jump | "Fade out and in. Sky has shifted to dusk..." |
 | Location change | "Camera rapidly pans through the wall to reveal..." |
-| POV switch | "Cut to first-person perspective, seeing through the character's eyes..." |
-| Flashback | "The image suddenly shifts to a warm, desaturated tone, back to..." |
+| POV switch | "Cut to first-person perspective..." |
+| Flashback | "Image shifts to warm, desaturated tone..." |
+
+### @ Reference System
+
+| Ref | Controls | Use For |
+|-----|----------|---------|
+| @Image | Appearance | Character consistency (most common) |
+| @Video | Motion | Replicate camera/choreography/VFX (when action is complex) |
+| @Audio | Sound | Beat-sync and mood (optional) |
+
+Always specify purpose: ✅ `@Image1 for character's facial features` ❌ `Use @Image1 to make a video`
 
 ---
 
-## Step 5: Output Format
+## Workflow
 
-Generate two outputs:
-1. **JSON** — for downstream agents or automation pipelines
-2. **Markdown** — for humans to read and manually paste into Seedance/JiMeng
+### Step 1: Confirm Specs
+Ask user: target duration (default 1 min), reference images, style preference.
+
+### Step 2: Script Breakdown
+Build character identity cards, plan emotional arc, determine shot break points. **You decide** where to cut, what mood, what camera — based on the story.
+
+### Step 3: Generate Shot Prompts
+Each prompt follows 🔒 hard rules. Creative decisions are yours.
+
+### Step 4: Check Continuity
+Verify adjacent shots connect naturally. Label continuity method.
+
+### Step 5: Output
+Generate both:
+
+1. **JSON** — for agent pipelines
+2. **Markdown** — for humans
 
 ### JSON Schema
 
 ```json
 {
   "title": "Project title",
-  "duration": "2min",
-  "style": "Sci-fi cinematic",
+  "duration": "1min",
+  "style": "Style",
   "characters": [
     {
       "id": "CHAR_A",
       "name": "Name",
-      "appearance": "Appearance description",
-      "clothing": "Clothing description",
-      "signature": "Signature visual trait",
-      "reference": "@Image1 or null"
+      "appearance": "Appearance",
+      "clothing": "Clothing",
+      "signature": "Signature trait",
+      "reference": "@Image1 or null",
+      "lock_phrase": "Exact character lock phrase used in every shot"
     }
   ],
   "shots": [
@@ -201,51 +203,27 @@ Generate two outputs:
 
 ```markdown
 # 🎬 [Title]
-
 > Duration: [X]min | Style: [style] | Shots: [N]
 
 ## 📋 Character Sheet
-
-**[Name]**
-- Appearance: [description]
-- Clothing: [description]
-- Signature: [trait]
-- Reference: [yes/no]
+**[Name]** — [appearance] | [clothing] | Signature: [trait]
 
 ---
-
 ## 🎬 Shot 1/N — [Title]
 ⏱ 15s | 🟢 [Mood]
+> [prompt text]
 
-> [Full prompt text]
-
-📎 Upload: [file list]
+📎 Upload: [files]
 🔗 Continuity: [description]
-
 ---
-
 ## 📝 Assembly Guide
-- Order: 1→2→3... sequential
-- Use "video extension" to chain shots
-- Final assembly in CapCut
-- Music: [suggestion]
+[Order, continuity methods, music suggestion]
 ```
 
 ---
 
-## Technical Constraints
+## Reference
 
-- Single generation max **15 seconds**
-- File limit **12 total** (images + videos + audio)
-- Images max **9**, videos max **3 clips**
-- Resolution max **1080p**
-- **Real human faces may be restricted** by platform
-- Prompts over **600 characters** may reduce quality
-
-## Common Pitfalls
-
-1. **Inconsistent character description** — Every shot must carry the same character lock phrase, word for word
-2. **Jarring jumps between shots** — Adjacent shots need a "bridge", don't teleport without explanation
-3. **Adjective stacking** — "stunning, breathtaking, magnificent" wastes tokens. Use one specific physical detail instead
-4. **Ignoring emotional arc** — 8 shots of pure climax = no climax. Must have rise and fall
-5. **Information overload per shot** — One 15s shot = one thing happening. Don't cram 3-4 events
+- 102 real prompts: [ALL_PROMPTS.md](../ALL_PROMPTS.md)
+- Category breakdown: [CATEGORIES.md](../CATEGORIES.md)
+- Structural analysis: [ANALYSIS.md](../ANALYSIS.md)
